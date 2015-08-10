@@ -1,0 +1,62 @@
+
+{% extends  "EyesBundle::layout_eyes.html.twig" %}
+
+{% block css %}
+{{ parent() }}
+{% endblock %}
+
+{% block titre %} 
+{{ parent() }}
+{% endblock %}
+
+
+
+{% block central %}
+
+
+
+<div class="clearfix">
+
+
+	<div style="margin-top:70px;" class="jp2">
+
+		<div class="clearfix">
+
+    <p> votre email:</p>
+			
+ 				
+    	 {{ form_start(formEmail, {"attr":{"novalidate":"novalidate" }}) }}			 		
+            		
+   		{{ form_end(formEmail) }}
+
+        {%  for message in app.session.flashbag.get("sucess_email") %}
+
+                <p class="alert alert-success">{{ message }}</p>
+
+            {% endfor %}
+
+
+	</div>
+
+	<div class="jp3">
+					
+    		
+    </div>
+
+</div>
+
+
+
+
+{% endblock %}
+
+
+
+  {% block javascript %}
+ 
+
+    {{ parent() }}
+
+
+  {% endblock %}
+

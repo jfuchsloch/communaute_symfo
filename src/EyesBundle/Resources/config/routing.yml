@@ -1,0 +1,73 @@
+eyes_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: EyesBundle:Default:index }
+
+eyes_accueil: #nom unique de la route
+    path:   /{login}  #url de la page
+    defaults: {_controller: EyesBundle:Accueil:index , login:"" }
+    #chemin vers le controller et sa methode
+
+eyes_creation_membre: #nom unique de la route
+    path:   /membre/creation  #url de la page
+    defaults: {_controller: EyesBundle:Accueil:creation  }
+    #chemin vers le controller et sa methode
+
+eyes_creation_membre_english: #nom unique de la route
+    path:   /membre/creation/english  #url de la page
+    defaults: {_controller: EyesBundle:Accueil:creationEnglish  }
+    #chemin vers le controller et sa methode
+
+eyes_recherche_membre: #nom unique de la route
+    path:   /membre/recherche  #url de la page
+    defaults: {_controller: EyesBundle:Accueil:recherche  }
+    #chemin vers le controller et sa methode
+
+eyes_reinit_statut_connexion_membre: #nom unique de la route
+    path:   /membre/reinit/statutConnexion/{id}
+    defaults: {_controller: EyesBundle:Accueil:reinit  }
+
+eyes_accueil_english: #nom unique de la route
+    path:   /acceuil/english/{login}  #url de la page
+    defaults: {_controller: EyesBundle:Accueil:indexEnglish, login:""  }
+    #chemin vers le controller et sa methode
+
+eyes_services: #nom unique de la route
+    path:   /membre/services/{login}  #url de la page
+    defaults: {_controller: EyesBundle:Accueil:services  }
+    #chemin vers le controller et sa methode
+
+eyes_services_english: #nom unique de la route
+    path:   /membre/services_english/{login}  #url de la page
+    defaults: {_controller: EyesBundle:Accueil:services_english  }
+    #chemin vers le controller et sa methode
+
+
+eyes_conso: #nom unique de la route
+    path:   /membre/conso/{login}  #url de la page
+    defaults: {_controller: EyesBundle:Accueil:conso  }
+
+eyes_culture: #nom unique de la route
+    path:   /membre/culture/{login}  #url de la page
+    defaults: {_controller: EyesBundle:Accueil:culture  }
+
+eyes_loisirs: #nom unique de la route
+    path:   /membre/loisirs/{login}  #url de la page
+    defaults: {_controller: EyesBundle:Accueil:loisirs }
+   #chemin vers le controller et sa methode
+
+eyes_chat: #nom unique de la route
+    path:   /membre/chat/{login}  #url de la page
+    defaults: {_controller: EyesBundle:Accueil:chat  }
+
+eyes_mail: #nom unique de la route
+    path:   /membre/email  #url de la page
+    defaults: {_controller: EyesBundle:Accueil:email  }
+ 
+
+eyes_geocalisation: #nom unique de la route
+    path:   /membre/geocalisation  #url de la page
+    defaults: {_controller: EyesBundle:Accueil:geocalisation  }
+
+
+
+

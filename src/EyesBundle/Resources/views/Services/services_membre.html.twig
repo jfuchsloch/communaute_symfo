@@ -1,0 +1,47 @@
+
+{% extends  "EyesBundle::layout_eyes_services.html.twig" %}
+
+{% block css %}
+{{ parent() }}
+{% endblock %}
+
+{% block titre %} {{ parent() }}
+{% endblock %}
+
+
+
+{% block central %}
+	
+	<div id="push1">
+ 	</div>
+ 
+    
+
+     {{ form_start(formUtilisateurs, {"attr":{"novalidate":"novalidate" }}) }}			 		
+            		
+
+    {{ form_end(formUtilisateurs) }}
+
+    		
+   
+  </form>
+
+
+ 
+
+  <a href="{{ path("eyes_geocalisation") }}">Geocalisation</a> 
+             
+       
+
+{% endblock %}
+
+
+
+  {% block javascript %}
+ 
+
+    {{ parent() }}
+
+
+  {% endblock %}
+

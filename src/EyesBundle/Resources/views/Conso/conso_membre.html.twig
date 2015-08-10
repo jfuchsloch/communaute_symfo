@@ -1,0 +1,42 @@
+
+{% extends  "EyesBundle::layout_eyes_conso.html.twig" %}
+
+{% block css %}
+{{ parent() }}
+{% endblock %}
+
+{% block titre %} {{ parent() }}
+{% endblock %}
+
+
+
+{% block central %}
+	
+	<div id="push1">
+ 	</div>
+ 
+    
+
+     {{ form_start(formUtilisateurs, {"attr":{"novalidate":"novalidate" }}) }}			 		
+            		
+
+    {{ form_end(formUtilisateurs) }}
+
+    		
+   
+  </form>
+
+
+
+{% endblock %}
+
+
+
+  {% block javascript %}
+ 
+
+    {{ parent() }}
+
+
+  {% endblock %}
+

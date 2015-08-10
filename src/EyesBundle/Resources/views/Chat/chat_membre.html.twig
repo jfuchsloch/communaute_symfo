@@ -1,0 +1,584 @@
+
+{% extends  "EyesBundle::layout_eyes_services.html.twig" %}
+
+{% block css %}
+{{ parent() }}
+{% endblock %}
+
+{% block titre %} {{ parent() }}
+{% endblock %}
+
+
+
+{% block central %}
+	
+	<div id="push1">
+ 	</div>
+
+   <div class="clearfix">            
+
+        <div class="id_1">
+
+          <label>Description du produit:</label>
+          {{ form_start(formArticle, {"attr":{"novalidate":"novalidate" }}) }}			 		
+            		
+
+          {{ form_end(formArticle) }}
+
+          {%  for message in app.session.flashbag.get("sucess_article") %}
+
+                <p class="alert alert-success">{{ message }}</p>
+
+            {% endfor %}
+
+        </div>
+
+        
+        <div class="id_2">
+      
+          <div class="clearfix">
+          
+              <div class="id_21">
+              
+              
+              Contact par: 
+
+              <a href="{{ path("eyes_mail") }}">Mail</a> 
+              
+              <a href="#">Chat</a> 
+              
+              <a href="#">Webcam</a>
+
+            
+
+              <label style="margin-top:60px">Eyes member choice</label>
+              <br/>
+
+                  <div id="nom" style="">
+                </div>
+              
+                <div id="prix" style="">
+                </div>
+              
+                <div id="pseudo" style="">
+                </div>
+
+                <div id="email" style="">
+                </div>
+
+                            
+                <img style="margin-left:0px;" id="jpbis" src=""/>
+              
+             
+                <br/>
+              <label id="prec"  style="padding-left:20px;margin-top:0px">Voir article precedent</label>
+              <br/>
+              <label id="suiv"  style="padding-left:20px;">Voir article suivant</label>
+  
+             
+
+            </div>
+
+            <div class="id_22"> 
+
+                <div class="clearfix">
+              
+                    <div class="id_221">
+
+                      <button class="btn btn-primary" id="ajoutpanier" style="margin-bottom:10px;margin-left:0px;">Ajout panier</button> 
+
+                      <button class="btn btn-primary" id="suppressionpanier" style="margin-left:0px;">Suppression panier</button> 
+      
+                      <button class="btn btn-primary" id="sauvegardepanier" style="margin-left:0px;">Sauvegarde panier</button> 
+
+                    
+                    </div>
+
+                  <div class="id_222">
+
+                    <p style="margin-top:0px;margin-left:100px;">Liste produits panier</p>
+                    <div style="margin-top:0px;margin-left:100px;" id="listearticles" style="margin-left:600px;"/>
+
+
+                  </div>
+
+              </div>
+
+                  
+              <script type="text/javascript">
+
+                var i = 0;
+                var monPannier = [];
+                var chaine;
+                var tamp = "";
+                var myChaine = "";
+                var  nom, email, pseudo, prix;
+                 var posPannier = 0;
+
+
+                var arr = {{allArticles|json_encode|raw}};
+                var monPannier = {{pannier|json_encode|raw}};
+
+                console.log(monPannier);          
+                console.log(arr);
+
+                var monPannierbis = JSON.parse(monPannier);
+                console.log(monPannierbis);
+
+                for (var i1=0;i1<monPannierbis.length;i1++){
+
+                    var tamp = monPannierbis[i1].nom  + ";" +monPannierbis[i1].prix + ";" + monPannierbis[i1].pseudo_auteurArticle + "<br/>";
+
+                    //console.log(tamp);
+               
+                    myChaine = myChaine + tamp;
+                }
+
+                console.log(myChaine);
+                document.querySelector("#listearticles").innerHTML=myChaine;
+          
+
+
+
+
+                //console.log(panier);
+    
+                var delimiteur = "{";              
+                var autredelimiteur = ",";
+
+                //splitString(arr, delimiteur);
+                var arrayOfStrings = arr.split(delimiteur);
+                console.log(arrayOfStrings);
+                //console.log("longueur");
+                console.log(arrayOfStrings.length);              
+
+
+               function descProd(i){
+                
+                  //var chaine ="Vue/images/tmp/"+ arr[i]["image"];
+                  console.log("descProd");
+                  i++;
+                  console.log(i);
+                  console.log(arrayOfStrings[i]);
+                  Strings = arrayOfStrings[i].split(autredelimiteur);
+                  
+                  console.log(Strings);
+                  //console.log(Strings.length);
+                  for (var j=0; j < Strings.length; j++){
+
+                     /* if (j==5){ */
+                          //console.log(Strings[j]);
+                          var SousStrings = Strings[j].split(":");
+                          //console.log(SousStrings);
+                          
+                          for (var k=0; k < SousStrings.length; k++){
+
+                              if (k ==1) {
+
+                                  /* image */
+                                  if (j == 6){
+                                    //console.log("jp1");
+                                    //console.log(SousStrings[k]);
+                                    var test = '"';
+                                    var nomImage = SousStrings[k].split(test);
+                                    //console.log("jp2");
+                                    //console.log(nomImage[1]);
+
+                                    chaine ="../../../../../web/images/"+ nomImage[1];
+                                    //console.log(chaine);
+                                    document.getElementById("jpbis").setAttribute("src",chaine);
+                                  }
+
+                                  /* nom */
+
+                                  if (j == 1){
+                                    //console.log("jp1");
+                                    //console.log(SousStrings[k]);
+                                    var test = '"';
+                                    nom = SousStrings[k].split(test);
+                                    //console.log("jp2");
+                                    //console.log(nom[1]);
+                                    var produit = "produit: " + nom[1];
+                                    document.querySelector("#nom").innerHTML=produit;
+                                  }
+
+                                    /* pseudo */
+                                   if (j == 4){
+                                    //console.log("jp1");
+                                    //console.log(SousStrings[k]);
+                                    var test = '"';
+                                     pseudo = SousStrings[k].split(test);
+                                    //console.log("jp2");
+                                    //console.log(pseudo[1]);
+                                    var pseudobis = "pseudo: " + pseudo[1];
+                                    document.querySelector("#pseudo").innerHTML=pseudobis;
+                                  }
+                                  
+                                   /* email */
+                                   if (j == 5){
+                                    //console.log("jp1");
+                                    //console.log(SousStrings[k]);
+                                    var test = '"';
+                                    email = SousStrings[k].split(test);
+                                    //console.log("jp2");
+                                    //console.log(email[1]);
+                                    var emailbis = "email: " + email[1];
+                                    document.querySelector("#email").innerHTML=emailbis;
+                                  }
+
+                                  /* prix */
+                                  if (j == 3){
+                                    //console.log("jp1");
+                                    //console.log(SousStrings[k]);
+                                     prix = SousStrings[k];
+                                     var prixbis = "prix : " + prix + "euros";
+                                    document.querySelector("#prix").innerHTML=prixbis;
+                                    //var test = '"';
+                                    //var prix = SousStrings[k].split(test);
+                                    //console.log("jp2");
+                                    //console.log(prix[1]);
+                                  }
+
+                              }
+                     
+                          }
+
+                     /*}*/    /* fin j=5 */ 
+
+                  } /* fin boucle for */
+                  
+               } /* fin desc prod(i) */
+
+
+                affichageimage();
+
+                function affichageimage(){
+            
+                if (arrayOfStrings.length>0)
+                {
+
+                  if (i<arrayOfStrings.length && i>0 ){
+                    descProd(i);
+                  }
+                  else
+                  { 
+                    i=0;
+                    console.log("onredemarre");       
+                    descProd(i);
+                  }
+
+                }
+
+              }
+
+
+
+       
+              function splitString(stringToSplit, separator) {
+
+                  var arrayOfStrings = stringToSplit.split(separator);
+
+                  console.log('La chaine d\'origine est : "' + stringToSplit + '"');
+                  console.log('Le délimiteur est : "' + separator + '"');
+                  console.log("Le tableau comporte " + arrayOfStrings.length + " elements : ");
+
+                  for (var i=0; i < arrayOfStrings.length; i++){
+                    
+                    console.log(arrayOfStrings[i]);
+                  
+                    var autreDelimiteur = ",";
+                  
+                    console.log("jpf1");
+                  
+                    var arrayOfStringsbis = arrayOfStrings[i].split(autreDelimiteur);  
+                    for (var j=0; j < arrayOfStringsbis.length; j++)
+                      console.log(arrayOfStringsbis[j]);
+                
+                  }
+                            
+
+                }
+
+            
+                  document.querySelector("#suiv").addEventListener("click", function(){
+                    console.log("click suiv");
+                    
+                    
+                    i++;
+                  affichageimage();
+                    
+                    console.log(i);
+
+                  });
+    
+                  document.querySelector("#prec").addEventListener("click", function(){
+                    console.log("click prec");
+                    i--;
+                    //console.log(i);
+                    affichageimage();
+                  });
+
+                  // AJOUT PANNIER          
+                  document.querySelector("#ajoutpanier").addEventListener("click", function(){
+            
+                      console.log("ajout panier");
+              
+                      var tab = [];
+                      var article = "";
+
+
+                      console.log(Strings);
+                      console.log(Strings.length);
+
+                      console.log(nom[1]);
+                      console.log(prix);
+                      console.log(pseudo[1]);
+          
+                      function panier_1(un_nom,un_prix,un_pseudo) {
+                        this.nom=un_nom;
+                        this.prix=un_prix;
+                        this.pseudo_auteurArticle=un_pseudo;
+                      }
+
+                      
+                      var article_panier  = new panier_1(nom[1],prix,pseudo[1]);
+                      monPannierbis.push(article_panier);
+
+                      console.log(monPannierbis);
+                      console.log(monPannierbis.length);
+
+                      //Affichage dans la liste "listePanier" les articles choisis
+                      //var nom = "produit: " + nom[1]+"|";
+                      //var prix = "prix:" + prix + "euros"+"|";
+                      //var pseudo= "pseudo:" + pseudo[1];
+
+                      for (var k=0;k<monPannierbis.length;k++)
+                      {
+                        test = monPannierbis[k].nom + ";" + monPannierbis[k].prix + ";" + monPannierbis[k].pseudo_auteurArticle;
+                        article = article  + test + "<br/>";
+
+                      }
+
+            
+                    console.log(article);
+          
+                    document.querySelector("#listearticles").innerHTML=article;
+
+                     posPannier =monPannierbis.length -1;
+                    console.log(posPannier);
+
+              });
+
+               // SUPPRESSION PANIER
+              document.querySelector("#suppressionpanier").addEventListener("click", function(){
+              
+                  console.log("suppression panier");
+              
+                  var articlebis = "";
+
+                               
+                  console.log(posPannier);
+
+
+                  monPannierbis.splice(posPannier,1);
+                  console.log(monPannierbis);
+
+                  for (var k=0;k<monPannierbis.length;k++)
+                  {
+                      testbis = monPannierbis[k].nom + ";" + monPannierbis[k].prix + ";" + monPannierbis[k].pseudo;
+                        articlebis = articlebis  + testbis + "<br/>";
+
+                  }
+
+
+                  document.querySelector("#listearticles").innerHTML=articlebis;
+                  posPannier -= 1;
+
+
+            });
+
+            // SAUVEGARDE PANNIER
+            document.querySelector("#sauvegardepanier").addEventListener("click", function(){
+
+            console.log("sauvegarde panier");
+
+            var xhr = getXMLHttpRequest();
+               
+            if(xhr && xhr.readyState != 0){
+                 xhr.abort();
+            }
+ 
+          xhr.onreadystatechange = function(){
+              if(xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)){
+                // tu peux récupérer en JS le résultat du traitement avec xhr.responseText;
+              }
+              else if(xhr.readyState == 2 || xhr.readyState == 3){ // traitement non fini
+             // tu peux mettre un message ou un gif de chargement par exemple
+            }
+          }
+
+              
+ 
+         xhr.open("POST", "../../../../../PanierController.php", true); // true pour asynchrone
+         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+
+
+         console.log(JSON.stringify(monPannierbis));
+
+         xhr.send("var="+JSON.stringify(monPannierbis));
+        
+            
+              function getXMLHttpRequest() {
+               var xhr = null;
+  
+                if(window.XMLHttpRequest || window.ActiveXObject) {
+                
+                 if(window.ActiveXObject) {
+                        try {
+                                xhr = new ActiveXObject("Msxml2.XMLHTTP");
+                        } catch(e) {
+                                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                        }
+                  } else {
+                        xhr = new XMLHttpRequest();
+                }
+              } else {
+                alert("Votre navigateur ne supporte pas l objet XMLHTTPRequest...");
+                return null;
+            }
+  
+                 return xhr;
+              } 
+
+              //JSON.parse(panier);
+              //console.log(JSON.parse(panier));
+              //console.log(article);
+              //panier = [];
+              article = "";
+              articlebis="";
+
+              //document.querySelector("#listearticles").innerHTML="";
+
+              alert("votre pannier a été sauvegardé ! ");
+         
+          });
+
+
+
+
+              </script>
+
+             
+      
+
+            </div>
+        
+          </div> <!-fin div clearfix -->
+    
+        </div> <!-- fin div id_2 -->
+
+    
+    </div>
+
+
+
+  <form style="margin-top:0px;margin-left:800px;margin-botton:30px;height:72px;" class="form-signin" method="POST" action="">
+
+    <label>Vos commentaires sur le forum</label>
+    <!--<input type="hidden" name="page" value="chat">-->
+    <br/>
+    <textarea name="inputContenu" placeholder="taper votre message"rows=5 cols=40></textarea>  
+    <input type="text"  name ="inputAuteur"  placeholder="taper votre pseudo"></input>
+
+    <button style="margin-top:20px;" name="valider" value ='valider' class="btn btn-primary" type="submit">Ajout message au forum</button>
+      
+  </form>
+
+
+  {#  {{ dump(allMessages) }}  #}
+
+    <div class="row" style="margin-top:80px;">
+        <h3 style="margin-top:100px;">FORUM DE DISCUSSION</h3>
+        <br/><br/>
+   
+        <div class="col-md-8" style="margin-left:180px;width:480px;">
+        
+            <div class="panel panel-info">
+            
+                <div class="panel-heading">
+                    HISTORIQUE FORUM (messages les plus récents)
+                </div>
+            
+                
+                <div class="panel-body">
+
+                    <ul id="ChatMessages">
+
+                         {% for unMessage in allMessages %}                       
+                                  <!-- <li class="media"> -->
+
+                                        <!--<div class="media-body"> -->
+
+                                           <!-- <div class="media"> -->
+                                                
+                                                <!--<a class="pull-left" href="#">
+                                                    <img class="media-object img-circle " src="" />
+                                                </a>-->
+
+                                               <!-- <div class="media-body" > -->
+                        
+                                               {{ unMessage.contenu }}  
+                                                    <br/>
+
+                                                <small class="text-muted">{{ unMessage.auteur}}  |  {{unMessage.date_message}}</small>
+
+
+                                                   <br/><br/>
+                                                
+                                               <!-- </div> -->
+
+                                             
+                                          <!--  </div> -->
+
+                                        <!--</div> -->
+
+                                    <!--</li> -->
+                                    
+                                    
+                                 <!--</ul> -->
+     
+                       {% endfor %}
+
+
+                   <!--<div class="panel-footer">
+
+                        <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Enter Message" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-info" type="button">SEND</button>
+                                    </span>
+                        </div>
+
+                    </div>  --><!-- fin div panel-footer-->
+    
+        </div>
+    
+    </div>
+
+   </div> <!-- fin div col md 8-->
+  
+
+
+
+  {% endblock %}
+
+
+
+  {% block javascript %}
+ 
+
+    {{ parent() }}
+
+
+  {% endblock %}
+

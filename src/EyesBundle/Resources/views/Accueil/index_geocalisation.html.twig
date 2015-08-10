@@ -1,0 +1,130 @@
+
+{% extends  "EyesBundle::layout_eyes.html.twig" %}
+
+{% block css %}
+    {{ parent() }}
+{% endblock %}
+
+{% block titre %} 
+    {{ parent() }}
+{% endblock %}
+
+
+
+{% block central %}
+
+
+    <div style="margin-top:70px;" class="jp2">
+
+        
+         {{ form_start(formGeocalisation, {"attr":{"novalidate":"novalidate" }}) }}         
+                
+        {{ form_end(formGeocalisation) }}
+
+          <span add>
+
+            {% if add %}
+
+              {{add}}
+
+          {% endif %}
+
+
+          <div id="map-canvas" style="height:450px;width:1000px;margin-left:5px;">
+
+
+          <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&language=fr"></script>
+
+
+           <script type="text/javascript">
+
+            console.log("haha");
+
+            var tableauMarqueurs = [
+              { lat:43.300309, lng:5.594457 },
+              { lat:43.310309, lng:5.484457 },
+              { lat:43.320309, lng:5.374457 }
+              ];
+
+
+              var zoneMarqueurs = new google.maps.LatLngBounds();
+
+              var geocoder;
+              var map;
+
+              console.log("hiiiii");
+
+               chaine ="../../../../../web/images/"+ "bonhomme_2.png";
+               console.log(chaine);
+
+
+                                     
+              console.log("he");
+
+              function initialize() {
+
+                  console.log("tt3");
+
+                  geocoder = new google.maps.Geocoder();
+                  var latlng = new google.maps.LatLng(43.295309,5.374457);
+                  
+                  var mapOptions = {
+                    zoom: 12,
+                    center: latlng,
+                     mapTypeId: google.maps.MapTypeId.TERRAIN
+                 }
+
+                 console.log("tt4");
+                map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+                var marqueur = new google.maps.Marker({
+          map: map,
+          position: new google.maps.LatLng(43.295309,5.374457),
+          title: map.getCenter().toUrlValue()
+      });
+
+        zoneMarqueurs.extend( marqueur.getPosition() );
+
+          
+                google.maps.event.addListener( marqueur, "position_changed", function( evenement ) {
+                    console.log("event");
+                    marqueur.setTitle( marqueur.getPosition().toUrlValue() );
+                });
+
+
+               map.fitBounds( zoneMarqueurs );
+
+
+        }
+
+
+          console.log("tt2");
+        
+          function codeAddress() {
+
+              var  zoneMarqueursbis = "";
+
+              zoneMarqueursbis = new google.maps.LatLngBounds();  
+
+              console.log("codeAddress");
+              var adresse = document.getElementById('adresse').value;
+              console.log("adresse");
+          }
+
+
+
+          google.maps.event.addDomListener(window, 'load', initialize);
+
+          console.log("fin");
+           </script>
+
+
+
+{% endblock %}
+
+
+
+{% block javascript %}
+    {{ parent() }}
+{% endblock %}
+

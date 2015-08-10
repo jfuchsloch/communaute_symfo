@@ -1,0 +1,149 @@
+
+{% extends  "EyesBundle::layout_eyes.html.twig" %}
+
+{% block css %}
+{{ parent() }}
+{% endblock %}
+
+{% block titre %} {{ parent() }}
+{% endblock %}
+
+
+
+{% block central %}
+
+  {% if membre[0].login == "" %}
+
+<div class="clearfix">
+
+
+	<div class="jp2">
+
+		<div class="clearfix">
+			<div class="debut">
+				<img src="{{asset("images/bonhomme_2.png") }}"/> 
+			</div>
+
+			<div class="debut1">
+				<p>Mon compte</p>
+			</div>
+		</div>
+
+
+
+
+
+
+		<div id="push">
+ 			<h2>Membre</h2>
+ 		</div>
+ 
+ 				
+    	 {{ form_start(formUtilisateurs, {"attr":{"novalidate":"novalidate" }}) }}			 		
+            		
+   		{{ form_end(formUtilisateurs) }}
+
+
+   		<!--<div class="debut3">
+   		<img src="{{asset("images/url.gif") }}" />
+   		</div>-->
+
+
+   				
+
+
+		<!--<h2>Nouveau membre </h2>
+		<a id="jp" href="{{ path("eyes_creation_membre")  }}">Inscription</a> -->
+
+		{%  for message in app.session.flashbag.get("sucess_membre") %}
+
+                <p class="alert alert-success">{{ message }}</p>
+
+            {% endfor %}
+
+	</div>
+
+	<div class="jp3">
+					
+					<h3><span class="jp4">EARTH</span><span class="jp5">EYES.fr</span></h3>
+
+				
+    				<!--<img src="{{asset("images/url.gif") }}" />  -->
+
+    				<h2>Nouveau membre: </h2>
+					<a id="jp" href="{{ path("eyes_creation_membre")  }}">Inscrivez-vous</a>
+
+    		
+    </div>
+
+</div>
+
+{% endif %}
+
+ 	{% if membre[0].login != "" %}
+
+<div class="clearfix">
+
+<div class="partie1">
+
+    <div class="menu">
+    <p>Info pratique</p>
+      
+    <ul>
+     
+    <li><a  href="{{ path("eyes_services", {"login":membre[0].login} ) }}">Eyes Services</a></li>
+    <li><a href="{{ path("eyes_loisirs", {"login":membre[0].login} ) }}">Eyes Loisirs</a></li>
+    <li><a href="{{ path("eyes_culture", {"login":membre[0].login} ) }}">Eyes Culture</a></li>
+    <li><a href="{{ path("eyes_conso", {"login":membre[0].login} ) }}">Eyes Conso</a></li>
+    </ul>
+    
+    </div>
+
+</div>
+
+<div class="partie2">
+
+  <div id="lstNbConnectes">
+    <p> {{NbMembreOnLine}} <span class="cust" >connectes</span> </p>
+  </div>
+
+ <!-- <h3><span class="jp4">EARTH</span><span class="jp5">EYES.fr</span></h3> -->
+
+
+ 	
+  <img  src="{{asset("images/SITE.JPEG") }}"/>
+
+ 	    <div id="listeMembreConnectes">
+
+    	   <p>Membre en ligne</p>
+
+        <ul>
+         {% for unMembre in MembreOnLine %}
+
+         	<li> {{unMembre.login}} </li>
+
+         {% endfor %}
+
+         </ul>
+
+     </div>
+
+  </div>
+
+
+  </div>
+      
+	{% endif %}
+
+{% endblock %}
+
+
+
+  {% block javascript %}
+ 
+
+    {{ parent() }}
+
+
+  {% endblock %}
+

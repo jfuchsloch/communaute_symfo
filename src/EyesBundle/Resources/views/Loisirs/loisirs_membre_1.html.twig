@@ -1,0 +1,56 @@
+
+{% extends  "EyesBundle::layout_eyes_loisirs.html.twig" %}
+
+{% block css %}
+{{ parent() }}
+{% endblock %}
+
+{% block titre %} {{ parent() }}
+{% endblock %}
+
+
+
+{% block central %}
+
+  
+
+<div class="partie2_services">
+
+
+  
+ 	
+  <img  src="{{asset("images/SITE.JPEG") }}"/>
+
+ 	    <div id="listeMembreConnectes">
+
+    	   <p>Membre en ligne</p>
+
+        <ul>
+         {% for unMembre in membre_services %}
+
+         	<li> {{unMembre.login}} </li>
+
+         {% endfor %}
+
+         </ul>
+
+     </div>
+
+
+     
+  </div>
+    
+
+
+{% endblock %}
+
+
+
+  {% block javascript %}
+ 
+
+    {{ parent() }}
+
+
+  {% endblock %}
+
